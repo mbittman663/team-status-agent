@@ -67,7 +67,10 @@ def load_task_memory() -> List[str]:
 # =========================
 def planner(state: AgentState) -> AgentState:
     prompt = f"""
-Break this task into a clear step-by-step plan:
+Break this task into a clear step-by-step plan considering the user query:
+
+User query:
+{state['input']}
 
 Task:
 {state['input']}
@@ -108,6 +111,8 @@ Known tasks from Excel:
 
 Research / Plan:
 {state['research']}
+
+Answer the user query as specifically and concisely as possible.
 """
     response = llm.invoke(prompt).content
     state["output"] = response
