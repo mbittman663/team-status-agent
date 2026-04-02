@@ -36,7 +36,7 @@ llm = ChatOpenAI(
 # 3. Persistent Memory Setup
 # =========================
 MEMORY_FILE = "agent_memory.json"
-EXCEL_FILE = "team_tasks.xlsx"
+EXCEL_FILE = "BankingTeam.xlsx"
 
 def load_memory() -> List[str]:
     if os.path.exists(MEMORY_FILE):
@@ -59,7 +59,7 @@ def load_task_memory() -> List[str]:
     df = pd.read_excel(EXCEL_FILE)
     tasks_memory = []
     for _, row in df.iterrows():
-        tasks_memory.append(f"Team: {row['Team']}, Task: {row['Task']}, Status: {row['Status']}")
+        tasks_memory.append(f"Team: {row['Team']}, Task: {row['Task']}, Owner: {row['Owner']}, Status: {row['Status']}, Notes: {row['Notes']}")
     return tasks_memory
 
 # =========================
@@ -98,7 +98,7 @@ def writer(state: AgentState) -> AgentState:
     tasks_context = "\n".join(task_memory)
 
     prompt = f"""
-You are an assistant helping summarize and analyze tasks for multiple teams.
+You are an assistant helping analyze tasks for multiple teams in a concise manner for the senior manager leading all of the teams.
 
 Past agent memory:
 {memory_context}
@@ -151,7 +151,7 @@ def run_agent(user_input: str):
 # =========================
 if __name__ == "__main__":
     print("=== TEAM TASK AGENT ===")
-    print("You can query completed/pending tasks for multiple teams.")
+    print("You can query completed/in progress/not started tasks for multiple teams.")
     print("Type 'exit' to quit.\n")
 
     while True:
