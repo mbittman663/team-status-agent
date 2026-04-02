@@ -3,7 +3,7 @@ from main import run_agent  # import your function
 
 st.set_page_config(page_title="Agent UI", layout="centered")
 
-st.title("🧠 LangGraph Agent")
+st.title("Task Status Agent")
 st.write("Ask anything and the agent will process it step-by-step.")
 
 # Input box
